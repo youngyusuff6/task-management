@@ -15,7 +15,7 @@
     <title> {{ Config::get('app.name') }} | @yield('title') </title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer> </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,6 +27,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- bootstrap icon  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <style>
       .toast-info {
         background-color: #2f96b4;
@@ -47,8 +48,40 @@
 
 
 
-<body class="app-body">
-        <main class="py-5 container ">
+<body>
+   <header>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container">
+                        <a class="navbar-brand" href="{{ route('home') }}">Home</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('all-task') }}">View All Task</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('show-add-task') }}">Add Task</a>
+                                </li>
+                                <!-- Project Dropdown -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="projectDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Projects
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="projectDropdown">
+                                        @foreach(\App\Models\Project::all() as $project)
+                                            <a class="dropdown-item" href="{{ route('tasks-by-project', ['id' => $project->id]) }}">{{ $project->name }}</a>
+                                        @endforeach
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        <main class="py-2 container ">
+           
             @yield('content')
         </main>
     </div>
@@ -58,6 +91,11 @@
     
     @yield('scripts')
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+        {!! Toastr::message() !!}
 </body>
 </html>

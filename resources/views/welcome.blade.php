@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('title') Home @endsection
-@section('og-image')
-<meta property="og:image" content="{{ asset('vendor/images/indexthumbnail.png')}}" />
-@endsection
 {{-- ADD CSS CODE HERE | OR LINK CSS HERE --}}
 @section('styles')
 <style>
@@ -159,15 +156,6 @@ ul {
     <div class="container">
          <!-- Start Landing Page -->
       <div class="landing-page">
-        <header>
-          <div class="container">
-            <a href="{{route('home')}}" class="logo"> <b>Home</b></a>
-            <ul class="links">
-              <li><a href="" class="btn">View All Task</a></li>
-              <li><a href="" class="btn">Add Task</a></li>            
-            </ul>
-          </div>
-        </header>
         <div class="content">
           <div class="container">
             <div class="info">
