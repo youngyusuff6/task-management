@@ -14,7 +14,8 @@ This is a simple Laravel web application for task management. Users can create, 
 - Bonus: Project functionality with pre-filled projects
 
 ## Setup and Deployment
-
+   
+   ```
 1. Clone the repository:
    ```bash
    git clone https://github.com/youngyusuff6/task-management.git
