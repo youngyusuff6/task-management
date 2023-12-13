@@ -10,26 +10,32 @@ class TaskController extends Controller
 {
     // Show all task function with sorting mechanism
     public function index()
-    {
-        // Fetch all tasks
-        $tasks = Task::latest()->get();
+{
+    // Fetch all tasks
+    $tasks = Task::latest()->get();
 
-        // Sort tasks by priority: high > medium > low
-        $tasks = $tasks->sortBy(function ($task) {
-            $priorityOrder = [
-                'high' => 1,
-                'medium' => 2,
-                'low' => 3,
-            ];
+    // Sort tasks by priority: high > medium > low
+    $tasks = $tasks->sortBy(function ($task) {
+        $priorityOrder = [
+            'high' => 1,
+            'medium' => 2,
+            'low' => 3,
+        ];
 
-            return [
-                $task->status === 'completed' ? 2 : 1, // Completed tasks have higher sort order
-                $priorityOrder[$task->priority],
-            ];
-        });
+        $statusOrder = [
+            'completed' => 2,
+            'canceled' => 2,
+        ];
 
-        return view('all_task', compact('tasks'));
-    }
+        return [
+            $statusOrder[$task->status] ?? 1, // Completed and canceled tasks have higher sort order
+            $priorityOrder[$task->priority],
+        ];
+    });
+
+    return view('all_task', compact('tasks'));
+}
+
 
     //Show add task form
     public function showAddTask()
